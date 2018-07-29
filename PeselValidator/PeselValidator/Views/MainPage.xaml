@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PeselValidator.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:PeselValidator">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelTitle" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold,Italic" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="TextColor" Value="#6C92EC" />
+            </Style>
+            <Style x:Key="labelPeselDiscription" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Italic" />
+                <Setter Property="FontSize" Value="9" />
+                <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                <Setter Property="TextColor" Value="#C5545454" />
+                <Setter Property="VerticalOptions" Value="StartAndExpand" />
+            </Style>
+            <Style x:Key="labelAnswer" TargetType="Label">
+                <Setter Property="FontSize" Value="9.5" />
+                <Setter Property="Margin" Value="0" />
+            </Style>
+            <Style x:Key="frameResult" TargetType="Frame">
+                <Setter Property="HasShadow" Value="True" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="BackgroundColor" Value="Gray" />
+            </Style>
+
+            <Style x:Key="labelResult" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="descFontSize" TargetType="Label">
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="GhostWhite" Spacing="1">
+                <Frame HasShadow="True" Margin="0" Padding="5">
+                    <Label Style="{StaticResource labelTitle}" Text="Walidator numeru PESEL" />
+                </Frame>
+                <Frame HasShadow="True" Margin="0" Padding="5">
+                    <StackLayout Orientation="Horizontal" Spacing="20">
+                        <Frame
+                            CornerRadius="20"
+                            HasShadow="True"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand">
+                            <Label
+                                FontAttributes="Italic"
+                                FontSize="15"
+                                HorizontalOptions="CenterAndExpand"
+                                MinimumHeightRequest="10"
+                                MinimumWidthRequest="10"
+                                Text="i"
+                                TextColor="#AFC2EF"
+                                VerticalOptions="CenterAndExpand" />
+                        </Frame>
+                        <Label Style="{StaticResource labelPeselDiscription}" Text="Numer PESEL to jedenastocyfrowy symbol numeryczny, który pozwala na łatwą identyfikację posiadającej go osoby. Numer PESEL zawiera datę urodzenia, numer porządkowy, oznaczenie płci oraz liczbę kontrolną." />
+                    </StackLayout>
+                </Frame>
+                <Frame HasShadow="True" Margin="0" Padding="5">
+                    <StackLayout>
+                        <Entry
+                            HorizontalOptions="Center"
+                            Keyboard="Numeric"
+                            Placeholder="Wpisz numer PESEL..."
+                            Text="{Binding EnteredPesel, Mode=TwoWay}" 
+                            FontSize="10"/>
+                        <Button
+                            Command="{Binding VerifyPeselCommand}"
+                            HorizontalOptions="Center"
+                            Text="Zweryfikuj" 
+                            FontSize="8"/>
+                    </StackLayout>
+                </Frame>
+                <Frame VerticalOptions="FillAndExpand">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Text="Płeć: " />
+                        <Label
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="{Binding Gender}" />
+                        <Label
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="0"
+                            Grid.Column="2"
+                            Text="Wiek: " />
+                        <Label
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="0"
+                            Grid.Column="3"
+                            Text="{Binding Age}" />
+                        <Label
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            Text="Data &#10;urodzenia: " />
+                        <Label
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding BornDate}" />
+                        <Label
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="1"
+                            Grid.Column="2"
+                            Text="Liczba &#10;porządkowa: " />
+                        <Label 
+                            Style="{StaticResource labelAnswer}"
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Text="{Binding OrdinalNumber}" />
+                        <Frame Margin="5" Padding="10" 
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="4"
+                            BackgroundColor="{Binding ResultFrameColor}"
+                            Style="{StaticResource frameResult}">
+                            <Label
+                                Style="{StaticResource labelResult}"
+                                Text="{Binding ResultText}"
+                                TextColor="{Binding ResultTextColor}"
+                                FontSize="12"/>
+                        </Frame>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>
